@@ -59,7 +59,18 @@ pub fn run(config: Config) -> MyResult<()> {
     for filename in config.files {
         match open(&filename) {
             Err(err) => eprintln!("Failed to open {}: {}", filename, err),
-            Ok(_) => println!("Opened {}", filename),
+            Ok(buf) => {
+                let mut line_no = 1;
+                for line in buf.lines() {
+                    let line = line?;
+                    if config.number_lines || line.len() > 0 && config.number_nonblank_lines {
+                        println!("     {}\t{}", line_no, line);
+                        line_no += 1;
+                    } else {
+                        println!("{}", line);
+                    }
+                }
+            },
         }
     }
     Ok(())
