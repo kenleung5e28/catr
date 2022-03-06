@@ -19,7 +19,7 @@ pub fn get_args() -> MyResult<Config> {
             Arg::with_name("files")
                 .value_name("FILE")
                 .help("Input file(s)")
-                .required(true)
+                .default_value("-")
                 .min_values(1)
         )
         .arg(
@@ -33,6 +33,7 @@ pub fn get_args() -> MyResult<Config> {
                 .short("b")
                 .help("Number nonblank lines")
                 .takes_value(false)
+                .conflicts_with("number_lines")
         )
         .get_matches();
     Ok(Config {
