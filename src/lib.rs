@@ -64,7 +64,7 @@ pub fn run(config: Config) -> MyResult<()> {
                 for line in buf.lines() {
                     let line = line?;
                     if config.number_lines || line.len() > 0 && config.number_nonblank_lines {
-                        println!("     {}\t{}", line_no, line);
+                        println!("{:>6}\t{}", line_no, line);
                         line_no += 1;
                     } else {
                         println!("{}", line);
